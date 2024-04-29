@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to Cirrus’s documentation! &#8212; Cirrus 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Interface" href="userinterface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Cirrus</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="userinterface.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Basic Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpc.html">Virtual Private Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instances.html">Instances</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="userinterface.html" title="next chapter">User Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-cirrus-s-documentation">
+<h1>Welcome to Cirrus’s documentation!<a class="headerlink" href="#welcome-to-cirrus-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><strong>Cirrus</strong> is a Modern App Delivery and Hosting Platform for users to manage
+and access resources like Virtual Machines. It offers
+functionalies such as resource management and usage monitoring
+to <em>streamline operations</em> and <em>optimize resource usage</em>.</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="userinterface.html">User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userinterface.html#end-user-s-ui-overview">End User’s UI Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Basic Networking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#about-virtual-network">About Virtual Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#isolated-networks">Isolated Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#adding-an-isolated-network">Adding an Isolated Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#editing-restarting-and-removing-a-isolated-network">Editing, Restarting, and Removing a Isolated Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#reconfiguring-networks-in-instances">Reconfiguring Networks in instances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#adding-a-network">Adding a Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#removing-a-network">Removing a Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#selecting-the-default-network">Selecting the Default Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#public-ip-address">Public IP Address</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#acquiring-a-new-ip-address">Acquiring a New IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#releasing-an-ip-address">Releasing an IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#reserving-a-public-ip-address">Reserving a Public IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#releasing-a-reserved-public-ip-address">Releasing a Reserved Public IP Address</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#static-nat">Static NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking.html#ip-forwarding-and-firewalling">IP Forwarding and Firewalling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#firewall-rules">Firewall Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#egress-firewall-rules-in-an-advanced-zone">Egress Firewall Rules in an Advanced Zone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#prerequisites-and-guidelines">Prerequisites and Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#configuring-an-egress-firewall-rule">Configuring an Egress Firewall Rule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#port-forwarding">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="networking.html#ip-load-balancing">IP Load Balancing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vpc.html">Virtual Private Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#about-virtual-private-cloud">About Virtual Private Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#major-components-of-a-vpc">Major Components of a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#adding-a-virtual-private-cloud">Adding a Virtual Private Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#adding-network-tiers">Adding Network Tiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#about-network-acl-lists">About Network ACL Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#creating-acl-lists">Creating ACL Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#creating-an-acl-rule">Creating an ACL Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#creating-a-tier-with-custom-acl-list">Creating a Tier with Custom ACL List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#assigning-a-custom-acl-list-to-a-tier">Assigning a Custom ACL List to a Tier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#deploying-instances-to-the-tier">Deploying Instances to the Tier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#acquiring-a-new-ip-address-for-a-vpc">Acquiring a New IP Address for a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#releasing-an-ip-address-allotted-to-a-vpc">Releasing an IP Address Allotted to a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#enabling-or-disabling-static-nat-on-a-vpc">Enabling or Disabling Static NAT on a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#adding-a-port-forwarding-rule-on-a-vpc">Adding a Port Forwarding Rule on a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#removing-tiers">Removing Tiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpc.html#editing-restarting-and-removing-a-virtual-private-cloud">Editing, Restarting, and Removing a Virtual Private Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instances.html">Instances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#about-instances">About Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#instance-lifecycle">Instance Lifecycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#creating-instances">Creating Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#accessing-instances">Accessing Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#stopping-and-starting-instance">Stopping and Starting Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#deleting-instance">Deleting Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#managing-instances">Managing Instances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="instances.html#scheduling-operations-on-an-instance">Scheduling operations on an Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instances.html#changing-the-instance-name-os-or-group">Changing the Instance Name, OS, or Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instances.html#changing-the-service-offering-for-an-instance">Changing the Service Offering for an Instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html#instance-snapshots">Instance Snapshots</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="instances.html#using-instance-snapshots">Using Instance Snapshots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2024, Arka.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

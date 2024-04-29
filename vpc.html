@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Virtual Private Cloud &#8212; Cirrus 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instances" href="instances.html" />
+    <link rel="prev" title="Basic Networking" href="networking.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cirrus</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="userinterface.html">User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking.html">Basic Networking</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Private Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about-virtual-private-cloud">About Virtual Private Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#major-components-of-a-vpc">Major Components of a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-virtual-private-cloud">Adding a Virtual Private Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-network-tiers">Adding Network Tiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-network-acl-lists">About Network ACL Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-acl-lists">Creating ACL Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-acl-rule">Creating an ACL Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-tier-with-custom-acl-list">Creating a Tier with Custom ACL List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assigning-a-custom-acl-list-to-a-tier">Assigning a Custom ACL List to a Tier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploying-instances-to-the-tier">Deploying Instances to the Tier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acquiring-a-new-ip-address-for-a-vpc">Acquiring a New IP Address for a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#releasing-an-ip-address-allotted-to-a-vpc">Releasing an IP Address Allotted to a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enabling-or-disabling-static-nat-on-a-vpc">Enabling or Disabling Static NAT on a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-port-forwarding-rule-on-a-vpc">Adding a Port Forwarding Rule on a VPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#removing-tiers">Removing Tiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#editing-restarting-and-removing-a-virtual-private-cloud">Editing, Restarting, and Removing a Virtual Private Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="instances.html">Instances</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="networking.html" title="previous chapter">Basic Networking</a></li>
+      <li>Next: <a href="instances.html" title="next chapter">Instances</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="virtual-private-cloud">
+<h1>Virtual Private Cloud<a class="headerlink" href="#virtual-private-cloud" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-virtual-private-cloud">
+<h2>About Virtual Private Cloud<a class="headerlink" href="#about-virtual-private-cloud" title="Permalink to this headline">¶</a></h2>
+<p>Virtual Private Cloud is a private, isolated part of Cirrus. A VPC can have its own virtual Network topology that resembles a traditional physical Network. You can launch Instances in the virtual Network that can have private addresses in the range of your choice, for example: 10.0.0.0/16. You can define Network Tiers within your VPC Network range, which in turn enables you to group similar kinds of Instances based on IP address range.</p>
+<p>For example, if a VPC has the private range 10.0.0.0/16, its guest Networks can have the Network ranges 10.0.1.0/24, 10.0.2.0/24, 10.0.3.0/24, and so on.</p>
+</div>
+<div class="section" id="major-components-of-a-vpc">
+<h2>Major Components of a VPC<a class="headerlink" href="#major-components-of-a-vpc" title="Permalink to this headline">¶</a></h2>
+<p>A VPC is comprised of the following Network components:</p>
+<ul class="simple">
+<li><p>VPC: A VPC acts as a container for multiple isolated Networks that can communicate with each other via its virtual router.</p></li>
+<li><p>Network Tiers: Each Network Tier acts as an isolated Network with its own VLANs and CIDR list, where you can place groups of resources, such as Instances. The Network Tiers are segmented by means of VLANs. The NIC of each Network Tier acts as its gateway.</p></li>
+<li><p>Virtual Router: A virtual router is automatically created and started when you create a VPC. The virtual router connect the Network Tiers and direct traffic among the public gateway, the VPN gateways, and the NAT Instances. For each Network Tier, a corresponding NIC and IP exist in the virtual router. The virtual router provides DNS and DHCP services through its IP.</p></li>
+<li><p>Public Gateway: The traffic to and from the Internet routed to the VPC through the public gateway. In a VPC, the public gateway is not exposed to the end user; therefore, static routes are not support for the public gateway.</p></li>
+<li><p>Private Gateway: All the traffic to and from a private Network routed to the VPC through the private gateway. For more information, see “Adding a Private Gateway to a VPC”.</p></li>
+<li><p>VPN Gateway: The VPC side of a VPN connection.</p></li>
+<li><p>Site-to-Site VPN Connection: A hardware-based VPN connection between your VPC and your datacenter, home Network, or co-location facility. For more information, see “Setting Up a Site-to-Site VPN Connection”.</p></li>
+<li><p>Customer Gateway: The customer side of a VPN Connection. For more information, see “Creating and Updating a VPN Customer Gateway”.</p></li>
+<li><p>NAT Instance: An Instance that provides Port Address Translation for Instances to access the Internet via the public gateway. For more information, see “Enabling or Disabling Static NAT on a VPC”.</p></li>
+<li><p>Network ACL: Network ACL is a group of Network ACL items. Network ACL items are nothing but numbered rules that are evaluated in order, starting with the lowest numbered rule. These rules determine whether traffic is allowed in or out of any Network Tier associated with the Network ACL. For more information, see “Configuring Network Access Control List”.</p></li>
+</ul>
+</div>
+<div class="section" id="adding-a-virtual-private-cloud">
+<h2>Adding a Virtual Private Cloud<a class="headerlink" href="#adding-a-virtual-private-cloud" title="Permalink to this headline">¶</a></h2>
+<p>When creating the VPC, you simply provide the zone and a set of IP addresses for the VPC Network address space. You specify this set of addresses in the form of a Classless Inter-Domain Routing (CIDR) block.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p></li>
+<li><p>Click Add VPC. The Add VPC page is displayed as follows:</p></li>
+<li><p>Provide the following information:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Name: A short name for the VPC that you are creating.</p></li>
+<li><p>Description: A brief description of the VPC.</p></li>
+<li><p>Zone: Choose the zone where you want the VPC to be available.</p></li>
+<li><p>CIDR: Defines the CIDR range for all the Network Tiers (guest Networks) within a VPC. When you create a Network Tier, ensure that its CIDR is within the Super CIDR value you enter. The CIDR must be RFC1918 compliant.</p></li>
+<li><p>VPC Offering: If the administrator has configured multiple VPC offerings, select the one you want to use for this VPC.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click OK.</p></li>
+</ol>
+</div>
+<div class="section" id="adding-network-tiers">
+<h2>Adding Network Tiers<a class="headerlink" href="#adding-network-tiers" title="Permalink to this headline">¶</a></h2>
+<p>Network Tiers are distinct locations within a VPC that act as isolated Networks, which do not have access to other Network Tiers by default. Network Tiers are set up on different VLANs that can communicate with each other by using a virtual router. Network Tiers provide inexpensive, low latency Network connectivity to other Network Tiers within the VPC.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p></li>
+<li><p>All the VPC that you have created for the Account is listed in the page.</p></li>
+<li><p>Click the Configure button of the VPC for which you want to set up Network Tiers.</p></li>
+<li><p>Click Create Network.</p></li>
+<li><p>The Add new Network Tier dialog is displayed, as follows:
+If you have already created Network Tiers, the VPC diagram is displayed. Click Create Network Tier to add a new Network Tier.</p></li>
+<li><p>Specify the following:
+All the fields are mandatory.</p>
+<blockquote>
+<div><ul>
+<li><p>Name: A unique name for the Network Tier you create.</p></li>
+<li><p>Network Offering: The following default Network offerings are listed: Internal LB, DefaultIsolatedNetworkOfferingForVpcNetworksNoLB, DefaultIsolatedNetworkOfferingForVpcNetworks</p>
+<p>In a VPC, only one Network Tier can be created by using LB-enabled Network offering.</p>
+</li>
+<li><p>Gateway: The gateway for the Network Tier you create. Ensure that the gateway is within the Super CIDR range that you specified while creating the VPC, and is not overlapped with the CIDR of any existing Network Tier within the VPC.</p></li>
+<li><p>Netmask: The netmask for the Network Tier you create.</p>
+<p>For example, if the VPC CIDR is 10.0.0.0/16 and the Network Tier CIDR is 10.0.1.0/24, the gateway of the Network Tier is 10.0.1.1, and the netmask of the Network Tier is 255.255.255.0.</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click OK.</p></li>
+<li><p>Continue with configuring access control list for the Network Tier.</p></li>
+</ol>
+</div>
+<div class="section" id="about-network-acl-lists">
+<h2>About Network ACL Lists<a class="headerlink" href="#about-network-acl-lists" title="Permalink to this headline">¶</a></h2>
+<p>A Network ACL is a group of Network ACL rules. Network ACL rules are processed by their order, starting with the lowest numbered rule. Each rule defines at least an affected protocol, traffic type, action and affected destination / source Network.</p>
+</div>
+<div class="section" id="creating-acl-lists">
+<h2>Creating ACL Lists<a class="headerlink" href="#creating-acl-lists" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p></li>
+<li><p>All the VPCs that you have created for the Account is listed in the page.</p></li>
+<li><p>Click the Configure button of the VPC.</p>
+<p>For each tier, the following options are displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal LB</p></li>
+<li><p>Public LB IP</p></li>
+<li><p>Static NAT</p></li>
+<li><p>Instances</p></li>
+<li><p>CIDR</p></li>
+</ul>
+</div></blockquote>
+<p>The following router information is displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Private Gateways</p></li>
+<li><p>Public IP Addresses</p></li>
+<li><p>Site-to-Site VPNs</p></li>
+<li><p>Network ACL Lists</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Select Network ACL Lists.</p>
+<p>The following default rules are displayed in the Network ACLs page: default_allow, default_deny.</p>
+</li>
+<li><p>Click Add ACL Lists, and specify the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ACL List Name: A name for the ACL list.</p></li>
+<li><p>Description: A short description of the ACL list that can be displayed to users.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="creating-an-acl-rule">
+<h2>Creating an ACL Rule<a class="headerlink" href="#creating-an-acl-rule" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC.</p></li>
+<li><p>Select Network ACL Lists.</p>
+<p>In addition to the custom ACL lists you have created, the following default rules are displayed in the Network ACLs page: default_allow, default_deny.</p>
+</li>
+<li><p>Select the desired ACL list.</p></li>
+<li><p>Select the ACL List Rules tab.</p>
+<p>To add an ACL rule, fill in the following fields to specify what kind of network traffic is allowed in the VPC.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Rule Number: The order in which the rules are evaluated.</p></li>
+<li><p>CIDR: The CIDR acts as the Source CIDR for the Ingress rules, and Destination CIDR for the Egress rules. To accept traffic only from or to the IP addresses within a particular address block, enter a CIDR or a comma-separated list of CIDRs. The CIDR is the base IP address of the incoming traffic. For example, 192.168.0.0/22. To allow all CIDRs, set to 0.0.0.0/0.</p></li>
+<li><p>Action: What action to be taken. Allow traffic or block.</p></li>
+<li><p>Protocol: The networking protocol that sources use to send traffic to the tier. The TCP and UDP protocols are typically used for data exchange and end-user communications. The ICMP protocol is typically used to send error messages or network monitoring data. All supports all the traffic. Other option is Protocol Number.</p></li>
+<li><p>Start Port, End Port (TCP, UDP only): A range of listening ports that are the destination for the incoming traffic. If you are opening a single port, use the same number in both fields.</p></li>
+<li><p>Protocol Number: The protocol number associated with IPv4 or IPv6. For more information, see Protocol Numbers.</p></li>
+<li><p>ICMP Type, ICMP Code (ICMP only): The type of message and error code that will be sent.</p></li>
+<li><p>Traffic Type: The type of traffic: Incoming or outgoing.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click Add. The ACL rule is added.</p>
+<p>You can edit the tags assigned to the ACL rules and delete the ACL rules you have created. Click the appropriate button in the Details tab.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="creating-a-tier-with-custom-acl-list">
+<h2>Creating a Tier with Custom ACL List<a class="headerlink" href="#creating-a-tier-with-custom-acl-list" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Create a VPC.</p></li>
+<li><p>Create a custom ACL list.</p></li>
+<li><p>Add ACL rules to the ACL list.</p></li>
+<li><p>Create a tier in the VPC.</p>
+<p>Select the desired ACL list while creating a tier.</p>
+</li>
+<li><p>Click OK.</p></li>
+</ol>
+</div>
+<div class="section" id="assigning-a-custom-acl-list-to-a-tier">
+<h2>Assigning a Custom ACL List to a Tier<a class="headerlink" href="#assigning-a-custom-acl-list-to-a-tier" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Create a VPC.</p></li>
+<li><p>Create a tier in the VPC.</p></li>
+<li><p>Associate the tier with the default ACL rule.</p></li>
+<li><p>Create a custom ACL list.</p></li>
+<li><p>Add ACL rules to the ACL list.</p></li>
+<li><p>Select the tier for which you want to assign the custom ACL.</p></li>
+<li><p>Click the Replace ACL List icon. button to replace an ACL list</p>
+<p>The Replace ACL List dialog is displayed.</p>
+</li>
+<li><p>Select the desired ACL list.</p></li>
+<li><p>Click OK.</p></li>
+</ol>
+</div>
+<div class="section" id="deploying-instances-to-the-tier">
+<h2>Deploying Instances to the Tier<a class="headerlink" href="#deploying-instances-to-the-tier" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC to which you want to deploy the Instances.</p>
+<p>The VPC page is displayed where all the tiers you have created are listed.</p>
+</li>
+<li><p>Click Instances tab of the tier to which you want to add an Instance.</p>
+<p>The Add Instance page is displayed.</p>
+<p>Follow the on-screen instruction to add an Instance. For information on adding an Instance, see the Installation Guide.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="acquiring-a-new-ip-address-for-a-vpc">
+<h2>Acquiring a New IP Address for a VPC<a class="headerlink" href="#acquiring-a-new-ip-address-for-a-vpc" title="Permalink to this headline">¶</a></h2>
+<p>When you acquire an IP address, all IP addresses are allocated to VPC, not to the guest networks within the VPC. The IPs are associated to the guest network only when the first port-forwarding, load balancing, or Static NAT rule is created for the IP or the network. IP can’t be associated to more than one network at a time.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC to which you want to deploy the Instances.</p>
+<p>The VPC page is displayed where all the tiers you created are listed in a diagram.</p>
+<p>The following options are displayed.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal LB</p></li>
+<li><p>Public LB IP</p></li>
+<li><p>Static NAT</p></li>
+<li><p>Instances</p></li>
+<li><p>CIDR</p></li>
+</ul>
+</div></blockquote>
+<p>The following router information is displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Private Gateways</p></li>
+<li><p>Public IP Addresses</p></li>
+<li><p>Site-to-Site VPNs</p></li>
+<li><p>Network ACL Lists</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Select IP Addresses.</p>
+<p>The Public IP Addresses page is displayed.</p>
+</li>
+<li><p>Click Acquire New IP, and click Yes in the confirmation dialog.</p>
+<p>You are prompted for confirmation because, typically, IP addresses are a limited resource. Within a few moments, the new IP address should appear with the state Allocated. You can now use the IP address in port forwarding, load balancing, and static NAT rules.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="releasing-an-ip-address-allotted-to-a-vpc">
+<h2>Releasing an IP Address Allotted to a VPC<a class="headerlink" href="#releasing-an-ip-address-allotted-to-a-vpc" title="Permalink to this headline">¶</a></h2>
+<p>The IP address is a limited resource. If you no longer need a particular IP, you can disassociate it from its VPC and return it to the pool of available addresses. An IP address can be released from its tier, only when all the networking ( port forwarding, load balancing, or StaticNAT ) rules are removed for this IP address. The released IP address will still belongs to the same VPC.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC whose IP you want to release.</p>
+<p>The VPC page is displayed where all the tiers you created are listed in a diagram.</p>
+<p>The following options are displayed.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal LB</p></li>
+<li><p>Public LB IP</p></li>
+<li><p>Static NAT</p></li>
+<li><p>Instances</p></li>
+<li><p>CIDR</p></li>
+</ul>
+</div></blockquote>
+<p>The following router information is displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Private Gateways</p></li>
+<li><p>Public IP Addresses</p></li>
+<li><p>Site-to-Site VPNs</p></li>
+<li><p>Network ACL Lists</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Select Public IP Addresses.</p>
+<p>The IP Addresses page is displayed.</p>
+</li>
+<li><p>Click the IP you want to release.</p></li>
+<li><p>In the Details tab, click the Release IP button button to release an IP.</p></li>
+</ol>
+</div>
+<div class="section" id="enabling-or-disabling-static-nat-on-a-vpc">
+<h2>Enabling or Disabling Static NAT on a VPC<a class="headerlink" href="#enabling-or-disabling-static-nat-on-a-vpc" title="Permalink to this headline">¶</a></h2>
+<p>A static NAT rule maps a public IP address to the private IP address of an Instance in a VPC to allow Internet traffic to it. This section tells how to enable or disable static NAT for a particular IP address in a VPC.</p>
+<p>If port forwarding rules are already in effect for an IP address, you cannot enable static NAT to that IP.</p>
+<p>If a Guest Instance is part of more than one network, static NAT rules will function only if they are defined on the default network.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC to which you want to deploy the Instances.</p>
+<p>The VPC page is displayed where all the tiers you created are listed in a diagram.</p>
+<p>For each tier, the following options are displayed.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal LB</p></li>
+<li><p>Public LB IP</p></li>
+<li><p>Static NAT</p></li>
+<li><p>Instances</p></li>
+<li><p>CIDR</p></li>
+</ul>
+</div></blockquote>
+<p>The following router information is displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Private Gateways</p></li>
+<li><p>Public IP Addresses</p></li>
+<li><p>Site-to-Site VPNs</p></li>
+<li><p>Network ACL Lists</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>In the Router node, select Public IP Addresses.</p>
+<p>The IP Addresses page is displayed.</p>
+</li>
+<li><p>Click the IP you want to work with.</p></li>
+<li><p>In the Details tab,click the Static NAT button. button to enable Static NAT. The button toggles between Enable and Disable, depending on whether static NAT is currently enabled for the IP address.</p></li>
+<li><p>If you are enabling static NAT, a dialog appears as follows:</p></li>
+<li><p>Select the tier and the destination Instance, then click Apply.</p></li>
+</ol>
+</div>
+<div class="section" id="adding-a-port-forwarding-rule-on-a-vpc">
+<h2>Adding a Port Forwarding Rule on a VPC<a class="headerlink" href="#adding-a-port-forwarding-rule-on-a-vpc" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC to which you want to deploy the Instances.</p>
+<p>The VPC page is displayed where all the tiers you created are listed in a diagram.</p>
+<p>For each tier, the following options are displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Internal LB</p></li>
+<li><p>Public LB IP</p></li>
+<li><p>Static NAT</p></li>
+<li><p>Instances</p></li>
+<li><p>CIDR</p></li>
+</ul>
+</div></blockquote>
+<p>The following router information is displayed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Private Gateways</p></li>
+<li><p>Public IP Addresses</p></li>
+<li><p>Site-to-Site VPNs</p></li>
+<li><p>Network ACL Lists</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>In the Router node, select Public IP Addresses.</p>
+<p>The IP Addresses page is displayed.</p>
+</li>
+<li><p>Click the IP address for which you want to create the rule, then click the Configuration tab.</p></li>
+<li><p>In the Port Forwarding node of the diagram, click View All.</p></li>
+<li><p>Select the tier to which you want to apply the rule.</p></li>
+<li><p>Specify the following:</p>
+<blockquote>
+<div><ul>
+<li><p>Public Port: The port to which public traffic will be addressed on the IP address you acquired in the previous step.</p></li>
+<li><p>Private Port: The port on which the Instance is listening for forwarded public traffic.</p></li>
+<li><p>Protocol: The communication protocol in use between the two ports.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>TCP</p></li>
+<li><p>UDP</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Add Instance: Click Add Instance. Select the name of the Instance to which this rule applies, and click Apply.</p>
+<p>You can test the rule by opening an SSH session to the Instance.</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="removing-tiers">
+<h2>Removing Tiers<a class="headerlink" href="#removing-tiers" title="Permalink to this headline">¶</a></h2>
+<p>You can remove a tier from a VPC. A removed tier cannot be revoked. When a tier is removed, only the resources of the tier are expunged. All the network rules (port forwarding, load balancing and staticNAT) and the IP addresses associated to the tier are removed. The IP address still be belonging to the same VPC.</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPC that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Click the Configure button of the VPC for which you want to set up tiers.</p>
+<p>The Configure VPC page is displayed. Locate the tier you want to work with.</p>
+</li>
+<li><p>Select the tier you want to remove.</p></li>
+<li><p>In the Network Details tab, click the Delete Network button. button to remove a tier</p>
+<p>Click Yes to confirm. Wait for some time for the tier to be removed.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="editing-restarting-and-removing-a-virtual-private-cloud">
+<h2>Editing, Restarting, and Removing a Virtual Private Cloud<a class="headerlink" href="#editing-restarting-and-removing-a-virtual-private-cloud" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select VPC.</p>
+<p>All the VPCs that you have created for the Account is listed in the page.</p>
+</li>
+<li><p>Select the VPC you want to work with.</p></li>
+<li><p>In the Details tab, click the Remove VPC button button to remove a VPC</p>
+<p>You can remove the VPC by also using the remove button in the Quick View.</p>
+<p>You can edit the name and description of a VPC. To do that, select the VPC, then click the Edit button. button to edit.</p>
+<p>To restart a VPC, select the VPC, then click the Restart button.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that all the tiers are removed before you remove a VPC.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2024, Arka.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/vpc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

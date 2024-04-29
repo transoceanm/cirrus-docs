@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Basic Networking &#8212; Cirrus 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Virtual Private Cloud" href="vpc.html" />
+    <link rel="prev" title="User Interface" href="userinterface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Cirrus</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="userinterface.html">User Interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Networking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#about-virtual-network">About Virtual Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isolated-networks">Isolated Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-an-isolated-network">Adding an Isolated Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-restarting-and-removing-a-isolated-network">Editing, Restarting, and Removing a Isolated Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reconfiguring-networks-in-instances">Reconfiguring Networks in instances</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-network">Adding a Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removing-a-network">Removing a Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecting-the-default-network">Selecting the Default Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#public-ip-address">Public IP Address</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#acquiring-a-new-ip-address">Acquiring a New IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#releasing-an-ip-address">Releasing an IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reserving-a-public-ip-address">Reserving a Public IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#releasing-a-reserved-public-ip-address">Releasing a Reserved Public IP Address</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#static-nat">Static NAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ip-forwarding-and-firewalling">IP Forwarding and Firewalling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#firewall-rules">Firewall Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#egress-firewall-rules-in-an-advanced-zone">Egress Firewall Rules in an Advanced Zone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites-and-guidelines">Prerequisites and Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-an-egress-firewall-rule">Configuring an Egress Firewall Rule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port-forwarding">Port Forwarding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ip-load-balancing">IP Load Balancing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vpc.html">Virtual Private Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instances.html">Instances</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="userinterface.html" title="previous chapter">User Interface</a></li>
+      <li>Next: <a href="vpc.html" title="next chapter">Virtual Private Cloud</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-networking">
+<h1>Basic Networking<a class="headerlink" href="#basic-networking" title="Permalink to this headline">¶</a></h1>
+<p>Cirrus allows users to set up networking for cloud resources.</p>
+<div class="figure align-default">
+<img alt="_images/network-screenshot.png" src="_images/network-screenshot.png" />
+</div>
+<div class="section" id="about-virtual-network">
+<h2>About Virtual Network<a class="headerlink" href="#about-virtual-network" title="Permalink to this headline">¶</a></h2>
+<p>A virtual network is a logical construct that enables multi-tenancy on a single physical network.</p>
+</div>
+<div class="section" id="isolated-networks">
+<h2>Isolated Networks<a class="headerlink" href="#isolated-networks" title="Permalink to this headline">¶</a></h2>
+<p>An isolated network can be accessed only by Instances of a single account.</p>
+<div class="section" id="adding-an-isolated-network">
+<h3>Adding an Isolated Network<a class="headerlink" href="#adding-an-isolated-network" title="Permalink to this headline">¶</a></h3>
+<p>To add an Isolated Network:</p>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select Guest Networks.</p></li>
+<li><p>Click Add Network.
+The Add Network window is displayed:</p>
+<div class="figure align-default">
+<img alt="_images/addnetwork-screenshot.png" src="_images/addnetwork-screenshot.png" />
+</div>
+</li>
+<li><p>Provide the following information for creating an isolated Network:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Name</strong>: Enter a name for the network.</p></li>
+<li><p><strong>Description</strong>: Enter a description for the network.</p></li>
+<li><p><strong>Zone</strong>: Select the zone for the network.</p></li>
+<li><p><strong>Network offering</strong>: Select the network offering for the network.</p></li>
+<li><p><strong>Gateway</strong>: Enter the gateway for the network.</p></li>
+<li><p><strong>Netmask</strong>: Enter the netmask for the network.</p></li>
+<li><p><strong>DNS</strong>: Enter the DNS for the network.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click OK.</p></li>
+</ol>
+</div>
+<div class="section" id="editing-restarting-and-removing-a-isolated-network">
+<h3>Editing, Restarting, and Removing a Isolated Network<a class="headerlink" href="#editing-restarting-and-removing-a-isolated-network" title="Permalink to this headline">¶</a></h3>
+<p>To edit, restart, or remove an Isolated Network:</p>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In the Select view, select Guest Networks.
+All the guest Networks that you have created for the account are listed in the page.</p></li>
+<li><p>Select the guest Network you want to work with.</p></li>
+<li><p>In the Details tab, click the “Delete Network” button to deletle the guest Network. Please note that all the resources in this Network will be deleted.
+You can edit the name, description, Network offering, CIDR, Network domain, DNS of a guest Network. To do that, click the “Edit” button.
+To restart a guest Network, click the “Restart Network” button. Please note all services provided by this Network will be interrupted. When you enable “Clean up”, the virtual routers of guest Network will be destroyed and new virtual routers will be provisioned.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that all the Instances are removed before you remove a guest Network.</p>
+</div>
+</div>
+</div>
+<div class="section" id="reconfiguring-networks-in-instances">
+<h2>Reconfiguring Networks in instances<a class="headerlink" href="#reconfiguring-networks-in-instances" title="Permalink to this headline">¶</a></h2>
+<p>Cirrus provides you the ability to move instances between networks and reconfigure an instance’s network. You can remove an instance from a network and add to a new network. You can also change the default network of a virtual machine.</p>
+<div class="section" id="adding-a-network">
+<h3>Adding a Network<a class="headerlink" href="#adding-a-network" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>In the left navigation, click Instances.</p></li>
+<li><p>Choose the instance that you want to work with.</p></li>
+<li><p>Click the NICs tab.</p></li>
+<li><p>Click Add network to instance.
+The Add network to instance dialog is displayed.</p></li>
+<li><p>In the drop-down list, select the network that you would like to add this instance to.
+A new NIC is added for this network. You can view the following details in the NICs page:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ID</p></li>
+<li><p>Network Name</p></li>
+<li><p>Type</p></li>
+<li><p>IP Address</p></li>
+<li><p>Gateway</p></li>
+<li><p>Netmask</p></li>
+<li><p>Is default</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="removing-a-network">
+<h3>Removing a Network<a class="headerlink" href="#removing-a-network" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>In the left navigation, click Instances.</p></li>
+<li><p>Choose the instance that you want to work with.</p></li>
+<li><p>Click the NICs tab.</p></li>
+<li><p>Locate the NIC you want to remove.</p></li>
+<li><p>Click Remove NIC button. button to remove a NIC.</p></li>
+<li><p>Click Yes to confirm.</p></li>
+</ol>
+</div>
+<div class="section" id="selecting-the-default-network">
+<h3>Selecting the Default Network<a class="headerlink" href="#selecting-the-default-network" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>In the left navigation, click Instances.</p></li>
+<li><p>Choose the instance that you want to work with.</p></li>
+<li><p>Click the NICs tab.</p></li>
+<li><p>Locate the NIC you want to work with.</p></li>
+<li><p>Click the Set default NIC button. button to set a NIC as default one..</p></li>
+<li><p>Click Yes to confirm.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="public-ip-address">
+<h2>Public IP Address<a class="headerlink" href="#public-ip-address" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="acquiring-a-new-ip-address">
+<h3>Acquiring a New IP Address<a class="headerlink" href="#acquiring-a-new-ip-address" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click the name of the network where you want to work with.</p></li>
+<li><p>Click the Public IP Addresses tab.</p></li>
+<li><p>Click Acquire New IP.
+The Acquire New IP window is displayed.
+Within a few moments, the new IP address should appear with the state Allocated. You can now use the IP address in port forwarding or static NAT rules.</p></li>
+</ol>
+</div>
+<div class="section" id="releasing-an-ip-address">
+<h3>Releasing an IP Address<a class="headerlink" href="#releasing-an-ip-address" title="Permalink to this headline">¶</a></h3>
+<p>When the last rule for an IP address is removed, you can release that IP address. The IP address still belongs to the VPC; however, it can be picked up for any guest network again.</p>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click the name of the network where you want to work with.</p></li>
+<li><p>Click Public IP Addresses.</p></li>
+<li><p>Click the IP address you want to release.</p></li>
+<li><p>Click the Release IP button. button to release an IP</p></li>
+</ol>
+</div>
+<div class="section" id="reserving-a-public-ip-address">
+<h3>Reserving a Public IP Address<a class="headerlink" href="#reserving-a-public-ip-address" title="Permalink to this headline">¶</a></h3>
+<p>When a public IP address is Free, you can reserve the public IP address. The public IP address can be reserved to the caller or other accounts.</p>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click Public IP Addresses. By default, it displays the Public IP Addresses in Allocate state.</p></li>
+<li><p>Filter the Public IP Addresses by state ‘Free’</p></li>
+<li><p>Click the Public IP address you want to reserve.</p></li>
+<li><p>Click the Reserve IP button.
+The Reserve Public IP dialog is displayed.</p></li>
+<li><p>In the drop-down list, select the Account Type (Account or Project) that you would like to reserve this Public IP to.</p></li>
+<li><p>Click Submit button.
+Reserved Public IP Addresses can be acquired and used in isolated Networks or VPCs of the accounts which the Public IP Addresses are reserved to.
+Reserved Public IP Addresses will be considered as an used Public IP of the account and domain.</p></li>
+</ol>
+</div>
+<div class="section" id="releasing-a-reserved-public-ip-address">
+<h3>Releasing a Reserved Public IP Address<a class="headerlink" href="#releasing-a-reserved-public-ip-address" title="Permalink to this headline">¶</a></h3>
+<p>When a public IP address is Reserved, you can release the public IP address so that the public IP address is ready for use by other accounts.</p>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click Public IP Addresses. By default, it displays the Public IP Addresses in Allocate state.</p></li>
+<li><p>Filter the Public IP Addresses by state ‘Reserved’</p></li>
+<li><p>Click the Public IP address you want to release.</p></li>
+<li><p>Click the Release IP button.</p></li>
+<li><p>Click OK button.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="static-nat">
+<h2>Static NAT<a class="headerlink" href="#static-nat" title="Permalink to this headline">¶</a></h2>
+<p>A static NAT rule maps a public IP address to the private IP address of an instance in order to allow Internet traffic into the instance. The public IP address always remains the same, which is why it is called static NAT. This section tells how to enable or disable static NAT for a particular IP address.</p>
+<ol class="arabic simple">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click the name of the network where you want to work with.</p></li>
+<li><p>Click Public IP Addresses.</p></li>
+<li><p>Click the IP address you want to work with.</p></li>
+<li><p>Click the Static NAT button to enable/disable NAT button.
+The button toggles between Enable and Disable, depending on whether static NAT is currently enabled for the IP address.</p></li>
+<li><p>If you are enabling static NAT, a dialog appears where you can choose the destination instance and click Apply.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If port forwarding rules are already in effect for an IP address, you cannot enable static NAT to that IP.</p></li>
+<li><p>If a Guest Instance is part of more than one network, static NAT rules will function only if they are defined on the default network.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="ip-forwarding-and-firewalling">
+<h2>IP Forwarding and Firewalling<a class="headerlink" href="#ip-forwarding-and-firewalling" title="Permalink to this headline">¶</a></h2>
+<p>By default, all incoming traffic to the public IP address is rejected. All outgoing traffic from the guests is also blocked by default.</p>
+<p>To allow outgoing traffic, follow the procedure in Egress Firewall Rules in an Advanced Zone.</p>
+<p>To allow incoming traffic, users may set up firewall rules and/or port forwarding rules. For example, you can use a firewall rule to open a range of ports on the public IP address, such as 33 through 44. Then use port forwarding rules to direct traffic from individual ports within that range to specific ports on user instances. For example, one port forwarding rule could route incoming traffic on the public IP’s port 33 to port 100 on one user instance’s private IP.</p>
+<div class="section" id="firewall-rules">
+<h3>Firewall Rules<a class="headerlink" href="#firewall-rules" title="Permalink to this headline">¶</a></h3>
+<p>By default, all incoming traffic to the public IP address is rejected by the firewall. To allow external traffic, you can open firewall ports by specifying firewall rules. You can optionally specify one or more CIDRs to filter the source IPs. This is useful when you want to allow only incoming requests from certain IP addresses.</p>
+<p>You cannot use firewall rules to open ports for an elastic IP address. When elastic IP is used, outside access is instead controlled through the use of security groups. See “Adding a Security Group”.</p>
+<p>In an advanced zone, you can also create egress firewall rules by using the virtual router. For more information, see “Egress Firewall Rules in an Advanced Zone”.</p>
+<p>Firewall rules can be created using the Firewall tab in the Management Server UI. This tab is not displayed by default when Cirrus is installed. To display the Firewall tab, the Cirrus administrator must set the global configuration parameter firewall.rule.ui.enabled to “true.”</p>
+<p>To create a firewall rule:</p>
+<ol class="arabic">
+<li><p>Log in to the Cirrus UI as an administrator or end user.</p></li>
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>Click the name of the network where you want to work with.</p></li>
+<li><p>Click Public IP Addresses tab.</p></li>
+<li><p>Click the IP address you want to work with.</p></li>
+<li><p>Click the Firewall tab and fill in the following values.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Source CIDR: (Optional) To accept only traffic from IP addresses within a particular address block, enter a CIDR or a comma-separated list of CIDRs. Example: 192.168.0.0/22. Leave empty to allow all CIDRs.</p></li>
+<li><p>Protocol: The communication protocol in use on the opened port(s).</p></li>
+<li><p>Start Port and End Port: The port(s) you want to open on the firewall. If you are opening a single port, use the same number in both fields.</p></li>
+<li><p>ICMP Type and ICMP Code: Used only if Protocol is set to ICMP. Provide the type and code required by the ICMP protocol to fill out the ICMP header. Refer to ICMP documentation for more details if you are not sure what to enter</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click Add.</p></li>
+</ol>
+</div>
+<div class="section" id="egress-firewall-rules-in-an-advanced-zone">
+<h3>Egress Firewall Rules in an Advanced Zone<a class="headerlink" href="#egress-firewall-rules-in-an-advanced-zone" title="Permalink to this headline">¶</a></h3>
+<p>The egress traffic originates from a private network to a public network, such as the Internet. By default, the egress traffic is blocked in default network offerings, so no outgoing traffic is allowed from a guest network to the Internet. However, you can control the egress traffic in an Advanced zone by creating egress firewall rules. When an egress firewall rule is applied, the traffic specific to the rule is allowed and the remaining traffic is blocked. When all the firewall rules are removed the default policy, Block, is applied.</p>
+</div>
+<div class="section" id="prerequisites-and-guidelines">
+<h3>Prerequisites and Guidelines<a class="headerlink" href="#prerequisites-and-guidelines" title="Permalink to this headline">¶</a></h3>
+<p>Consider the following scenarios to apply egress firewall rules:</p>
+<ul class="simple">
+<li><p>The egress firewall rules are not supported on shared networks.</p></li>
+<li><p>Allow the egress traffic from specified source CIDR. The Source CIDR is part of guest network CIDR.</p></li>
+<li><p>Allow the egress traffic with protocol TCP,UDP,ICMP, or ALL.</p></li>
+<li><p>Allow the egress traffic with protocol and destination port range. The port range is specified for TCP, UDP or for ICMP type and code.</p></li>
+<li><p>The default policy is Allow for the new network offerings, whereas on upgrade existing network offerings with firewall service providers will have the default egress policy Deny.</p></li>
+</ul>
+</div>
+<div class="section" id="configuring-an-egress-firewall-rule">
+<h3>Configuring an Egress Firewall Rule<a class="headerlink" href="#configuring-an-egress-firewall-rule" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>In the left navigation, choose Network.</p></li>
+<li><p>In Select view, choose Guest networks, then click the Guest network you want.</p></li>
+<li><p>To add an egress rule, click the Egress rules tab and fill out the following fields to specify what type of traffic is allowed to be sent out of instances in this guest network:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CIDR: (Add by CIDR only) To send traffic only to the IP addresses within a particular address block, enter a CIDR or a comma-separated list of CIDRs. The CIDR is the base IP address of the destination. For example, 192.168.0.0/22. To allow all CIDRs, set to 0.0.0.0/0.</p></li>
+<li><p>Protocol: The networking protocol that instances uses to send outgoing traffic. The TCP and UDP protocols are typically used for data exchange and end-user communications. The ICMP protocol is typically used to send error messages or network monitoring data.</p></li>
+<li><p>Start Port, End Port: (TCP, UDP only) A range of listening ports that are the destination for the outgoing traffic. If you are opening a single port, use the same number in both fields.</p></li>
+<li><p>ICMP Type, ICMP Code: (ICMP only) The type of message and error code that are sent.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click Add.</p></li>
+</ol>
+</div>
+<div class="section" id="port-forwarding">
+<h3>Port Forwarding<a class="headerlink" href="#port-forwarding" title="Permalink to this headline">¶</a></h3>
+<p>A port forward service is a set of port forwarding rules that define a policy. A port forward service is then applied to one or more Guest Instances. The Guest Instance then has its inbound network access managed according to the policy defined by the port forwarding service. You can optionally specify one or more CIDRs to filter the source IPs. This is useful when you want to allow only incoming requests from certain IP addresses to be forwarded.</p>
+<p>A Guest Instance can be in any number of port forward services. Port forward services can be defined but have no members. If a Guest Instance is part of more than one network, port forwarding rules will function only if they are defined on the default network</p>
+<p>To set up port forwarding:</p>
+<ol class="arabic">
+<li><p>In the left navigation bar, click Network.</p></li>
+<li><p>Click the name of the guest network where the instances are running.</p></li>
+<li><p>Choose an existing IP address or acquire a new IP address. See “Acquiring a New IP Address”. Click the name of the IP address in the list.</p></li>
+<li><p>Click the Port Forwarding tab.</p></li>
+<li><p>Fill in the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Public Port: The port to which public traffic will be addressed on the IP address you acquired in the previous step.</p></li>
+<li><p>Private Port: The port on which the instance is listening for forwarded public traffic.</p></li>
+<li><p>Protocol: The communication protocol in use between the two ports</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Click Add.</p></li>
+</ol>
+</div>
+<div class="section" id="ip-load-balancing">
+<h3>IP Load Balancing<a class="headerlink" href="#ip-load-balancing" title="Permalink to this headline">¶</a></h3>
+<p>The user may choose to associate the same public IP for multiple guests. Cirrus implements a TCP-level load balancer with the following policies.</p>
+<ul class="simple">
+<li><p>Round-robin</p></li>
+<li><p>Least connection</p></li>
+<li><p>Source IP</p></li>
+</ul>
+<p>This is similar to port forwarding but the destination may be multiple IP addresses.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2024, Arka.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/networking.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
